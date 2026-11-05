@@ -1,0 +1,37 @@
+{
+  "checkpoint": "epoch-300.pth",
+  "checkpoint_sha256": "d3694fa4b6ca15a3de96a6469d20107ae0e7f2a7468aaa1751962bdc36ad7ded",
+  "engine": "epoch-300_mit_b0_fp32_480.engine",
+  "onnx": "epoch-300_mit_b0_fp32_480.onnx",
+  "precision": "fp32",
+  "input_shape": [
+    1,
+    3,
+    480,
+    480
+  ],
+  "thermal_input_shape": [
+    1,
+    3,
+    480,
+    480
+  ],
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "tensorrt_version": "10.13.3.9",
+  "torch_version": "2.5.1+cu124",
+  "pixel_agreement_on_random_input": 0.9990668892860413,
+  "mean_abs_logit_error_on_random_input": 0.000614255724940449,
+  "max_abs_logit_error_on_random_input": 0.004094243049621582,
+  "pytorch_benchmark": {
+    "mean_ms": 25.566672466629825,
+    "p50_ms": 25.480958499883855,
+    "p95_ms": 26.651469399894268,
+    "fps": 39.113420070805915
+  },
+  "tensorrt_benchmark": {
+    "mean_ms": 15.618392099956205,
+    "p50_ms": 15.65399449987126,
+    "p95_ms": 16.741374550110777,
+    "fps": 64.02707740976768
+  }
+}

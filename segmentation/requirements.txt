@@ -1,0 +1,27 @@
+# Python dependencies for the RGB-T Transformer experiments.
+#
+# Runtime base:
+#   Python 3.11.10
+#   PyTorch 2.5.1+cu124
+#   torchvision 0.20.1+cu124
+#   CUDA 12.4.1
+#
+# PyTorch, torchvision, CUDA and cuDNN are provided by:
+#   pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel
+
+numpy==1.26.4
+scipy==1.13.1
+easydict==1.13
+opencv-python-headless==4.10.0.84
+timm==0.9.16
+tqdm==4.66.5
+tensorboardX==2.6.2.2
+tensorboard==2.17.1
+jupyterlab==4.2.5
+ipykernel==6.29.5
+matplotlib==3.9.2
+pandas==2.2.2
+scikit-learn==1.5.2
+Pillow==10.4.0
+PyYAML==6.0.2
+fvcore==0.1.5.post20221221

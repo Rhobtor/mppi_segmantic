@@ -1,0 +1,21 @@
+# ROS 2
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Pesos del modelo (no se suben; ver README)
+segmentation/checkpoints/**/*.pth
+segmentation/checkpoints/**/*.onnx
+segmentation/checkpoints/**/*.engine
+segmentation/outputs/
+segmentation/pretrained/
+
+# Editor
+.vscode/
+.idea/
+*.swp

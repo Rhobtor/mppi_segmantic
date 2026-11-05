@@ -1,0 +1,98 @@
+terrain_mppi_segmentation:
+  ros__parameters:
+    grid_map_topic: /elevation_map
+    fixed_frame: map
+    base_frame: base_link
+    goal_topic_pa: /goal_local
+    goal_topic_ps: /goal_ps
+    cmd_topic: /cmd_vel
+    semantic_enable: false
+    random_seed: 42
+    ctrl_rate_hz: 10.0
+    roll_dt: 0.1
+    roll_T: 65
+    roll_K: 220
+    motion_model: tracked
+    tracked_yaw_gain: 0.55
+    tracked_yaw_gain_min: 0.35
+    tracked_yaw_v_ref: 1.2
+    tracked_v_loss_w_gain: 0.25
+    v_max: 0.7
+    reverse_v_max: 0.6
+    allow_reverse: true
+    w_max: 0.7
+    a_lin_max: 1.5
+    a_yaw_max: 3.0
+    footprint_radius: 1.47
+    footprint_margin: 0.07
+    max_slope_deg: 28.0
+    max_step_m: 0.12
+    max_rough_m: 0.20
+    # false = unknown cells only penalised (w_unknown), like the original Teacher.
+    unknown_blocked: false
+    map_timeout_sec: 0.8
+    semantic_timeout_sec: 0.8
+    # 0 = no TF age check (original Teacher behaviour; Unity stamps are wall clock).
+    tf_timeout_sec: 0.0
+    w_trav: 6.0
+    w_unknown: 3.0
+    w_obs: 4.0
+    w_progress: 2.0
+    w_dterm: 1.0
+    w_hfinal: 1.5
+    w_control: 0.005
+    w_control_change: 0.002
+    w_semantic: 2.0
+    ramp_align_enable: true
+    ramp_slope_rad: 0.15
+    ramp_align_tolerance_deg: 18.0
+    ramp_align_weight: 6.0
+    max_cross_slope_deg: 20.0
+    action_hysteresis_abs: 0.10
+    goal_reached_dist: 1.0
+
+semantic_cost_node:
+  ros__parameters:
+    grid_map_topic: /elevation_map
+    fixed_frame: map
+    base_frame: base_link
+    mask_topic: /segmentation_cropped/mask
+    # Organized cloud of the SAME camera as the RGB image (Unity CameraPointCloudTiledPublisher).
+    cloud_topic: /camera/points
+    # Must match the Unity component: imageWidth, imageHeight, pixelStep, roiVMin, roiVMax.
+    # Real ZED 2i: cloud_topic /zed/zed_node/point_cloud/cloud_registered, image size = cloud
+    # size, cloud_pixel_step 1, cloud_roi_v_min 0.0.
+    cloud_image_width: 1920
+    cloud_image_height: 1080
+    cloud_pixel_step: 3
+    cloud_roi_v_min: 0.35
+    cloud_roi_v_max: 1.0
+    # Unity mask/cloud stamps use different clocks: pair by receipt time.
+    sync_use_header_stamps: false
+    sync_tolerance_sec: 0.6
+    tf_use_latest: true
+    min_range_m: 0.3
+    max_range_m: 15.0
+    min_obstacle_height_m: 0.15
+    max_obstacle_height_m: 2.5
+    ground_tolerance_m: 0.20
+    min_obstacle_points: 3
+    min_free_points: 3
+    min_terrain_points: 2
+    terrain_ttl_sec: 4.0
+    # 0 = obstacles kept until the camera sees free ground in that cell.
+    obstacle_max_age_sec: 0.0
+    input_timeout_sec: 1.5
+    stale_stop_radius_m: 8.0
+    caution_min_pixels: 400
+    caution_speed_scale: 0.4
+    caution_hold_sec: 2.0
+    caution_pixel_stride: 4
+    publish_rate_hz: 5.0
+    # IDs from RGBT-Transformer-SAR/V2_2/config.py:
+    # 0 First-Responder, 1 Civilian, 2 Vegetation, 3 Road, 4 Dirt-Road, 5 Building,
+    # 6 Undergrowth, 7 Civilian-Car, 8 Responder-Vehicle, 9 Debris, 10 Command-Post, 11 Wall.
+    # -1 = no preference cost. The model has no separate grass / natural-soil classes.
+    class_costs: [-1.0, -1.0, 0.60, 0.0, 0.0, -1.0, 0.25, -1.0, -1.0, -1.0, -1.0, -1.0]
+    obstacle_class_ids: [0, 1, 5, 7, 8, 9, 10, 11]
+    person_class_ids: [0, 1]
